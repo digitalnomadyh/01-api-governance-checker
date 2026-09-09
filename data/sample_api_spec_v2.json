@@ -1,0 +1,54 @@
+{
+  "openapi": "3.0.0",
+  "info": { "title": "Notifications & Webhooks API", "version": "2.0.0" },
+  "paths": {
+    "/v2/notifications": {
+      "get": {
+        "summary": "List notifications for the authenticated user",
+        "security": [{ "oauth2": ["notifications.read"] }],
+        "parameters": [],
+        "responses": {
+          "200": { "description": "OK" },
+          "429": { "description": "Rate limit exceeded" }
+        }
+      }
+    },
+    "/v2/notifications/{id}/read": {
+      "post": {
+        "summary": "Mark a notification as read",
+        "security": [{ "oauth2": ["notifications.write"] }],
+        "parameters": [
+          { "name": "id", "in": "path", "required": true, "schema": { "type": "string" } }
+        ],
+        "responses": {
+          "200": { "description": "OK" },
+          "429": { "description": "Rate limit exceeded" }
+        }
+      }
+    },
+    "/v1/webhooks/register": {
+      "post": {
+        "summary": "Register a webhook endpoint (legacy webhook system, replaced by v2 subscriptions)",
+        "parameters": [
+          { "name": "secret_token", "in": "query", "required": true, "schema": { "type": "string" } }
+        ],
+        "responses": {
+          "200": { "description": "OK" }
+        }
+      }
+    },
+    "/admin/debug/session": {
+      "get": {
+        "summary": "Temporary debug endpoint to inspect an active session",
+        "security": [{ "oauth2": ["admin.debug"] }],
+        "parameters": [
+          { "name": "user_password", "in": "query", "required": false, "schema": { "type": "string" } }
+        ],
+        "responses": {
+          "200": { "description": "OK" },
+          "429": { "description": "Rate limit exceeded" }
+        }
+      }
+    }
+  }
+}
