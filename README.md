@@ -1,5 +1,7 @@
 # API Governance Compliance Checker
 
+> Part of the [Platform Governance & Regionalization Agent Suite](https://github.com/digitalnomadyh/platform-governance-agent-suite)
+
 Reads an OpenAPI spec and a YAML governance ruleset, checks every endpoint
 against every rule, and produces a markdown compliance report. Modeled on
 the kind of manual API governance review process used for platforms like
