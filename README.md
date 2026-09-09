@@ -59,9 +59,9 @@ python checker.py --spec data/sample_api_spec.json --rules rules.yaml --out outp
 Without the key, the tool still produces the full report using local rule
 logic only — the AI layer is additive, not required.
 
-## Example
+## Examples
 
-Run the checker against the sample spec:
+### Example 1: Platform Access API
 
 ```bash
 python checker.py --spec data/sample_api_spec.json --rules rules.yaml
@@ -70,3 +70,19 @@ python checker.py --spec data/sample_api_spec.json --rules rules.yaml
 This checks each path/method in [data/sample_api_spec.json](data/sample_api_spec.json)
 against all five rules and writes a table of pass/fail results to
 `output/report.md`, along with a severity breakdown of any failures.
+Result: **7 of 20 checks failed** (2 HIGH, 2 MEDIUM, 3 LOW) — see
+[output/report.md](output/report.md). The unversioned, unauthenticated
+`/legacy/reports` endpoint accounts for most of the failures.
+
+### Example 2: Notifications & Webhooks API
+
+```bash
+python checker.py --spec data/sample_api_spec_v2.json --rules rules.yaml --out output/report_v2.md
+```
+
+A second sample spec, [data/sample_api_spec_v2.json](data/sample_api_spec_v2.json),
+mixes fully compliant endpoints with deliberate violations to exercise more
+rule paths: a webhook registration endpoint with no auth and a raw
+`secret_token` query param, and an unversioned admin endpoint exposing a
+`user_password` query param. Result: **6 of 20 checks failed** (3 HIGH,
+2 MEDIUM, 1 LOW) — see [output/report_v2.md](output/report_v2.md).
