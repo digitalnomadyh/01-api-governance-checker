@@ -1,0 +1,24 @@
+# Governance ruleset — modeled loosely on the kind of standards an
+# Autodesk Forge/APS-style API governance program would enforce.
+# Each rule is deterministic and checked directly against the OpenAPI spec.
+
+rules:
+  - id: AUTH-001
+    description: "Every endpoint must declare a security requirement (no anonymous access)."
+    severity: HIGH
+
+  - id: VER-001
+    description: "Every path must be versioned (starts with /v1, /v2, etc.)."
+    severity: MEDIUM
+
+  - id: PII-001
+    description: "No parameter name may suggest raw PII is passed in a query string (email, ssn, password, token)."
+    severity: HIGH
+
+  - id: RATE-001
+    description: "Every endpoint should document a rate-limit response (429) so consumers can build for it."
+    severity: LOW
+
+  - id: DEPRECATE-001
+    description: "Deprecated endpoints must say so in their description."
+    severity: MEDIUM

@@ -1,0 +1,50 @@
+{
+  "openapi": "3.0.0",
+  "info": { "title": "Platform Access API", "version": "1.0.0" },
+  "paths": {
+    "/v1/projects/{id}/entitlements": {
+      "get": {
+        "summary": "List entitlements for a project",
+        "security": [{ "oauth2": ["entitlements.read"] }],
+        "parameters": [
+          { "name": "id", "in": "path", "required": true, "schema": { "type": "string" } }
+        ],
+        "responses": {
+          "200": { "description": "OK" },
+          "429": { "description": "Rate limit exceeded" }
+        }
+      }
+    },
+    "/v1/users/lookup": {
+      "get": {
+        "summary": "Look up a user by email",
+        "security": [{ "oauth2": ["users.read"] }],
+        "parameters": [
+          { "name": "email", "in": "query", "required": true, "schema": { "type": "string" } }
+        ],
+        "responses": {
+          "200": { "description": "OK" }
+        }
+      }
+    },
+    "/legacy/reports": {
+      "get": {
+        "summary": "Old reporting endpoint",
+        "parameters": [],
+        "responses": {
+          "200": { "description": "OK" }
+        }
+      }
+    },
+    "/v1/ai/feature-access": {
+      "post": {
+        "summary": "Deprecated: use /v2/ai/feature-access instead",
+        "security": [{ "oauth2": ["ai.access"] }],
+        "parameters": [],
+        "responses": {
+          "200": { "description": "OK" }
+        }
+      }
+    }
+  }
+}
